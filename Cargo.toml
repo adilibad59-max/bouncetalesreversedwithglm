@@ -9,17 +9,11 @@ license = "MIT"
 macroquad = "0.4.14"
 
 [package.metadata.android]
-package = "com.bouncetales.port"
-apk_name = "bounce-rs"
-assets = "assets"
-build_targets = ["aarch64-linux-android"]
-
-[package.metadata.android.sdk]
-min_sdk_version = 21
-target_sdk_version = 33
-
-[package.metadata.android.application]
+package_name = "com.bouncetales.port"
 label = "Bounce Tales RS"
+assets = "assets"
+fullscreen = true
+build_targets = ["aarch64-linux-android"]
 
 [profile.release]
 opt-level = 3
