@@ -12,11 +12,11 @@ jobs:
         with:
           targets: aarch64-linux-android
       - uses: Swatinem/rust-cache@v2
-      - name: Install Android platform
+      - name: Install Android platform 33
         run: |
           SDKM=/usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager
-          yes | $SDKM --licenses > /dev/null || true
-          $SDKM "platforms;android-30" "platforms;android-33" "build-tools;33.0.2"
+          (yes | $SDKM --licenses > /dev/null) || true
+          $SDKM "platforms;android-33" "build-tools;33.0.2" > /dev/null || true
       - run: cargo install cargo-apk
       - name: Build APK
         run: cargo apk build
