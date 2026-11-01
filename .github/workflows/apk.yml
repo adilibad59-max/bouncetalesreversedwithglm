@@ -10,8 +10,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build with quad-apk (docker)
         run: |
-          docker run --rm -v "$PWD":/root/src -w /root/src \
-            notfl3/cargo-apk cargo quad-apk build --release
+          docker run --rm -v "$PWD":/root/src -w /root/src notfl3/cargo-apk sh -c "rustc --version && rustup update stable && rustup default stable && rustup target add aarch64-linux-android && rustc --version && cargo quad-apk build --release"
       - name: List output
         run: find target -name "*.apk"
       - uses: actions/upload-artifact@v4
