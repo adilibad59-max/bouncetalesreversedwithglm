@@ -11,9 +11,9 @@ jobs:
       - name: Build with quad-apk (docker)
         run: |
           docker run --rm -v "$PWD":/root/src -w /root/src notfl3/cargo-apk sh -c "rustc --version && rustup update stable && rustup default stable && rustup target add aarch64-linux-android && rustc --version && cargo quad-apk build --release"
-      - name: List output
-        run: find target -name "*.apk"
+      - name: Fix permissions
+        run: sudo chown -R "$USER" target || true
       - uses: actions/upload-artifact@v4
         with:
           name: bounce-rs-apk
-          path: target/android-artifacts/release/apk/*.apk
+          path: target/android-artifacts/release/apk/bounce-rs.apk
