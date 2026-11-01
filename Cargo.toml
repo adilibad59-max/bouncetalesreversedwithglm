@@ -15,6 +15,8 @@ label = "Bounce Tales RS"
 assets = "assets"
 fullscreen = true
 build_targets = ["aarch64-linux-android"]
+target_sdk_version = 30
+min_sdk_version = 21
 
 [profile.release]
 opt-level = 3
