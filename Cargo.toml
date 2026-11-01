@@ -1,0 +1,33 @@
+[package]
+name = "bounce-rs"
+version = "0.1.0"
+edition = "2021"
+description = "Bounce Tales inspired rolling-ball platformer — native Rust port (reverse-engineered mechanics, original implementation)"
+license = "MIT"
+
+[dependencies]
+macroquad = "0.4.14"
+
+# ---------------------------------------------------------------------------
+# ANDROID (native, emulatörsüz) — cargo-apk ile derlenir:
+#   cargo install cargo-apk
+#   rustup target add aarch64-linux-android armv7-linux-androideabi
+#   cargo apk build --release
+#   → APK: target/android/apk/release/bounce-rs.apk
+# ---------------------------------------------------------------------------
+[package.metadata.android]
+apk-label = "Bounce Tales RS"
+package = "com.bouncetales.port"
+version-code = 1
+version-name = "0.1.0"
+assets = "assets"
+build_targets = ["aarch64-linux-android"]
+fullscreen = true
+orientation = "portrait"
+target-sdk-version = 33
+min-sdk-version = 21
+opengles3 = false
+
+[profile.release]
+opt-level = 3
+lto = true
