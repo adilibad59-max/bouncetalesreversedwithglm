@@ -8,21 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: aarch64-linux-android
-      - uses: Swatinem/rust-cache@v2
-      - name: Install Android platform 33
+      - name: Build with quad-apk (docker)
         run: |
-          SDKM=/usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager
-          (yes | $SDKM --licenses > /dev/null) || true
-          $SDKM "platforms;android-33" "build-tools;33.0.2" > /dev/null || true
-      - run: cargo install cargo-apk
-      - name: Build APK
-        run: cargo apk build
-        env:
-          ANDROID_HOME: /usr/local/lib/android/sdk
+          docker run --rm -v "$PWD":/root/src -w /root/src \
+            notfl3/cargo-apk cargo quad-apk build --release
+      - name: List output
+        run: find target -name "*.apk"
       - uses: actions/upload-artifact@v4
         with:
           name: bounce-rs-apk
-          path: target/debug/apk/*.apk
+          path: target/android-artifacts/release/apk/*.apk
